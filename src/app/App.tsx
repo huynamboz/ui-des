@@ -5,6 +5,10 @@ import { DashboardScreen } from "./components/DashboardScreen";
 import { CostEstimateScreen } from "./components/CostEstimateScreen";
 import { StatisticsScreen } from "./components/StatisticsScreen";
 import { SettingsScreen, SettingsData } from "./components/SettingsScreen";
+import {
+  CommissionScreen,
+  CommissionData,
+} from "./components/CommissionScreen";
 
 interface PriceData {
   current: number;
@@ -34,10 +38,19 @@ export default function App() {
   const [priceData, setPriceData] = useState<PriceData>(fetchSpotPrice());
   const [currentTime, setCurrentTime] = useState(new Date());
   const [currentScreen, setCurrentScreen] = useState<
-    "home" | "login" | "dashboard" | "costEstimate" | "statistics" | "settings"
-  >("home");
+    | "commission"
+    | "home"
+    | "login"
+    | "dashboard"
+    | "costEstimate"
+    | "statistics"
+    | "settings"
+  >("commission");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<string>("");
+  const [commissionData, setCommissionData] = useState<CommissionData | null>(
+    null
+  );
   const [settings, setSettings] = useState<SettingsData>({
     wifi: { ssid: "", password: "" },
     consumption: { standard: 1.5, eco: 1.0 },
@@ -161,6 +174,28 @@ export default function App() {
     // In a real app, persist to storage here
     setCurrentScreen("dashboard");
   };
+
+  const handleCommissionComplete = (data: CommissionData) => {
+    setCommissionData(data);
+    setSettings((prev) => ({
+      ...prev,
+      wifi: data.wifi,
+    }));
+    console.log("Commission completed:", data);
+    setCurrentScreen("home");
+  };
+
+  // Show commission screen (first screen on boot)
+  if (currentScreen === "commission") {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <CommissionScreen
+          onComplete={handleCommissionComplete}
+          initialData={commissionData ?? undefined}
+        />
+      </div>
+    );
+  }
 
   // Show login screen
   if (currentScreen === "login") {
