@@ -70,9 +70,9 @@ export function CommissionScreen({
 
           {/* Main: 2 options */}
           <main className="flex-1 px-6 py-6 flex flex-col gap-4 bg-gradient-to-b from-white to-gray-50">
-            <p className="text-sm text-gray-600 text-center mb-2">
-              First-time device setup
-            </p>
+            <div className="flex justify-center mb-2">
+              <img src="/logodanaexperts.png" alt="DANA Experts" className="h-12 w-auto" />
+            </div>
 
             <button
               type="button"

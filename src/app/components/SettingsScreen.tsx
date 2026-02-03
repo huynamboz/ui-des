@@ -76,6 +76,11 @@ export function SettingsScreen({
 
       {/* Scrollable Content - 70% */}
       <main className="h-[70%] px-6 py-4 overflow-y-auto bg-gradient-to-b from-white to-gray-50">
+        {/* Logo */}
+        <div className="flex justify-center mb-4">
+          <img src="/logodanaexperts.png" alt="DANA Experts" className="h-10 w-auto" />
+        </div>
+
         {/* Wi-Fi Configuration Section */}
         <section className="mb-6">
           <div className="flex items-center gap-2 mb-3">
